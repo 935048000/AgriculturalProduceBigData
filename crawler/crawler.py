@@ -29,32 +29,25 @@ mysql = mysql (config['mysql'])
 class priceFormat:
     """
     产品价格处理类
-    
+    爬取产品价格相关数据
+    一共爬取2500页
     """
     
     def __init__(self):
         # 时间
         self.dateList = []
-        
         #  产品名称
         self.prdNameList = []
-        
         # 最低价格
         self.print0List = []
-        
         # 最高价格
         self.print1List = []
-        
         # 平均价格
         self.print2List = []
-        
         # 批发市场
         self.bazaarList = []
-        
         self.AllDataList = []
-        
         self.AllRawDataList = []
-        
         self.AllDataList = []
     
     def getPriceData(self, pages):
@@ -148,18 +141,124 @@ class priceFormat:
         return 0
 
 
+
+class articleFormat:
+    """
+    产品技术文档类
+    爬取产品相关技术文档数据
+    一共爬22页
+    """
+    def __init__(self):
+    
+        self.article_title_list = []
+        self.article_source_list = []
+        self.date_list = []
+        self.AllRawDataList = []
+        self.article_title = []
+        self.article_source = []
+        self.date = []
+        self.article_url = []
+        self.AllDataList = []
+        pass
+    
+    def getArticleData(self,pages):
+        try:
+            url = "http://www.vegnet.com.cn/Channel/Tech?page=%d&flag=13&ename=MaLingShu" % pages
+            user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1'
+            headers = {
+                'User-Agent': user_agent
+            }
+            req = urllib.request.Request (url, headers=headers, method='GET')
+            page = urllib.request.urlopen (req).read ().decode ('utf-8')
+            bsObj = BeautifulSoup (page, "html.parser")
+            userInfoObj = bsObj.find ("div", {"class": "jxs_list jxs_list1"})
+            self.article_title_list = userInfoObj.find_all ("span", {"class": "k_439"})
+            self.article_source_list = userInfoObj.find_all ("span", {"class": "k_159"})
+            self.date_list = userInfoObj.find_all ("span", {"class": "k_85"})
+            
+            _logger.info ("成功页码=%d" % pages)
+        except:
+            
+            _logger.error ("错误页码=%d" % pages)
+    
+        self.AllRawDataList.append (self.article_title_list)
+        self.AllRawDataList.append (self.article_source_list)
+        self.AllRawDataList.append (self.date_list)
+    
+        return self.AllRawDataList
+
+    def formatArticleData(self, AllRawDataList):
+        """
+        格式化结果数据
+        :return:
+        """
+        for i in range (0, len (AllRawDataList[0])):
+            # print (AllRawDataList[0][i].text.replace (' ', ''))
+            # print ("http://www.vegnet.com.cn" + AllRawDataList[0][i].find ("a").get ("href"))
+            # print (AllRawDataList[1][i].text)
+            # print (AllRawDataList[2][i].text[1:-1])
+            self.article_title.append(AllRawDataList[0][i].text.replace (' ', '').replace ("\r\n", ''))
+            self.article_source.append(AllRawDataList[1][i].text)
+            self.date.append(AllRawDataList[2][i].text[1:-1])
+            self.article_url.append("http://www.vegnet.com.cn" + AllRawDataList[0][i].find ("a").get ("href"))
+       
+    
+        self.AllDataList.append (self.article_title)
+        self.AllDataList.append (self.article_source)
+        self.AllDataList.append (self.date)
+        self.AllDataList.append (self.article_url)
+
+
+        return self.AllDataList
+
+    def writeArticleData(self, tempList2):
+        """
+
+        :param tempList2: 格式化后的数据
+        :return:
+        """
+        Wcon = create_engine (
+            'mysql+pymysql://ch:learn_project@49.235.241.182:3306/bigdata')
+    
+        # print (len (tempList2[0]))
+        datatable = pd.DataFrame ({"article_title": tempList2[0],
+                                   "article_source": tempList2[1],
+                                   "article_date": tempList2[2],
+                                   "article_url": tempList2[3]})
+    
+        # 写入数据库
+        try:
+            datatable.to_sql (name="prd_article", con=Wcon, if_exists='append', index=False)
+            _logger.info ("本次写入数据行数=%d" % len (tempList2[0]))
+        except:
+            _logger.error ("写入失败数据=%s" % tempList2)
+    
+        self.__init__ ()
+        return 0
+
+
 def main():
     """
     主函数
     
     :return:
     """
-    pf = priceFormat ()
-    for i in [1, 2]:
-        pf.__init__ ()
-        tempList = pf.getPriceData (i)
-        tempList2 = pf.formatPriceData (tempList)
-        pf.writePriceData(tempList2)
+    pass
+    # pf = priceFormat ()
+    # for i in [1, 2]:
+    #     pf.__init__ ()
+    #     tempList = pf.getPriceData (i)
+    #     tempList2 = pf.formatPriceData (tempList)
+    #     pf.writePriceData(tempList2)
+
+
+    # af = articleFormat ()
+    # for i in [1, 2]:
+    #     af.__init__ ()
+    #     tempList = af.getArticleData (i)
+    #     tempList2 = af.formatArticleData (tempList)
+    #     af.writeArticleData(tempList2)
+    
     
     return 0
 
