@@ -1,0 +1,11 @@
+2020-03-06 10:38:33,390 - ERROR - utils:load_config - lineno:134 - Failed to read configuration file 'config.yml'. Error: [Errno 2] No such file or directory: 'config.yml'
+2020-03-06 11:10:46,617 - INFO - crawler:getPriceData - lineno:81 - 成功页码：1
+2020-03-06 11:10:51,496 - INFO - crawler:getPriceData - lineno:81 - 成功页码：2
+2020-03-06 11:14:57,702 - INFO - crawler:getPriceData - lineno:81 - 成功页码：1
+2020-03-06 11:15:05,959 - INFO - crawler:getPriceData - lineno:81 - 成功页码：2
+2020-03-06 11:29:57,959 - INFO - crawler:getPriceData - lineno:82 - 成功页码：1
+2020-03-06 11:30:03,922 - INFO - crawler:getPriceData - lineno:82 - 成功页码：2
+2020-03-06 11:45:53,296 - INFO - crawler:getPriceData - lineno:82 - 成功页码=1
+2020-03-06 11:45:54,652 - INFO - crawler:writePriceData - lineno:143 - 本次写入数据行数=30
+2020-03-06 11:45:59,693 - INFO - crawler:getPriceData - lineno:82 - 成功页码=2
+2020-03-06 11:46:01,054 - INFO - crawler:writePriceData - lineno:143 - 本次写入数据行数=30
