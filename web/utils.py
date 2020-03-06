@@ -70,7 +70,7 @@ class InvalidConfigError(ValueError):
         super(InvalidConfigError, self).__init__(message)
 
 
-def read_file(filename, encoding="utf-8-sig"):
+def read_file(filename, encoding="UTF-8"):
     """
     从本地读入一个文件
     """
