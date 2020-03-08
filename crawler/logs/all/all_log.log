@@ -9,3 +9,11 @@
 2020-03-06 11:45:54,652 - INFO - crawler:writePriceData - lineno:143 - 本次写入数据行数=30
 2020-03-06 11:45:59,693 - INFO - crawler:getPriceData - lineno:82 - 成功页码=2
 2020-03-06 11:46:01,054 - INFO - crawler:writePriceData - lineno:143 - 本次写入数据行数=30
+2020-03-08 17:15:16,946 - INFO - crawler:readCityData - lineno:281 - 查询失败
+2020-03-08 17:16:22,966 - INFO - crawler:readCityData - lineno:281 - 查询失败
+2020-03-08 17:17:49,402 - INFO - crawler:readCityData - lineno:281 - 查询失败
+2020-03-08 17:18:51,333 - INFO - crawler:readCityData - lineno:282 - 查询失败
+2020-03-08 17:19:57,600 - INFO - crawler:readCityData - lineno:282 - 查询失败
+2020-03-08 17:22:43,012 - INFO - crawler:readCityData - lineno:282 - 查询失败
+2020-03-08 17:52:41,093 - INFO - crawler:readCityData - lineno:285 - 查询成功
+2020-03-08 17:52:49,613 - INFO - crawler:writePlantationData - lineno:297 - 写入成功
