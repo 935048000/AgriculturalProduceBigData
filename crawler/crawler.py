@@ -237,6 +237,71 @@ class articleFormat:
         return 0
 
 
+class plantationFormat:
+    """
+    种植基地类
+    爬取种植基地数量以及地域分布
+    爬取所有城市
+    """
+    
+    
+    def __init__(self):
+        self.Wcon = create_engine (
+            'mysql+pymysql://ch:learn_project@49.235.241.182:3306/bigdata',encoding = 'utf-8')
+
+        self.data = pd.DataFrame()
+        pass
+    
+    def getPlantationData(self,city_code):
+        """
+        
+        :param city_code: 输入城市code
+        :return: 返回种植基地数量
+        """
+        pass
+        url = "http://www.vegnet.com.cn/Channel/Base?ename=MaLingShu&flag=2&areaID=%s"%city_code
+        user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1'
+        headers = {
+            'User-Agent': user_agent
+        }
+        req = urllib.request.Request (url, headers=headers, method='GET')
+        page = urllib.request.urlopen (req).read ().decode ('utf-8')
+        bsObj = BeautifulSoup (page, "html.parser")
+        userInfoObj = bsObj.find ("div", {"class": "xs_xx"})
+        return int(userInfoObj.find_all ("span")[1].text.replace (' ', '').replace ('\r\n', ''))
+
+    def readCityData(self):
+        """
+        
+        :return: 返回查询的城市数据
+        """
+        try:
+            self.data = pd.read_sql_table (table_name="city_info", con=self.Wcon, index_col="id")
+            # print(self.data)
+        except:
+            _logger.info ("查询失败")
+            return None
+        
+        _logger.info("查询成功")
+        return self.data
+
+        
+    def writePlantationData(self,data):
+        
+        try:
+            data[['city','counts']].to_sql (name="plantation_info", con=self.Wcon, if_exists='append', index=False)
+        except:
+            _logger.info ("写入失败")
+            return None
+
+        _logger.info ("写入成功")
+        return 0
+
+
+
+
+
+
 def main():
     """
     主函数
@@ -259,6 +324,17 @@ def main():
     #     tempList2 = af.formatArticleData (tempList)
     #     af.writeArticleData(tempList2)
     
+    
+    # pf = plantationFormat()
+    # data = pf.readCityData()
+    # for i in ['110000','120000']:
+    #     # pf.__init__()
+    #     counts = pf.getPlantationData(i)
+    #     data.loc[pf.data.city_code == i, 'counts'] = counts
+    #
+    # pf.writePlantationData(data)
+
+
     
     return 0
 
