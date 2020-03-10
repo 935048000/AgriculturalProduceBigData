@@ -313,9 +313,9 @@ def main():
     
     :return:
     """
-    pass
+    # pass
     # pf = priceFormat ()
-    # for i in [1, 2]:
+    # for i in range(1,2501):
     #     pf.__init__ ()
     #     tempList = pf.getPriceData (i)
     #     tempList2 = pf.formatPriceData (tempList)
@@ -323,24 +323,24 @@ def main():
 
 
     # af = articleFormat ()
-    # for i in [1, 2]:
+    # for i in range(1,23):
     #     af.__init__ ()
     #     tempList = af.getArticleData (i)
     #     tempList2 = af.formatArticleData (tempList)
     #     af.writeArticleData(tempList2)
     
     
-    pf = plantationFormat()
-    data = pf.readCityData()
-    for number,i in enumerate(data.city_code.values):
-        # pf.__init__()
-        counts = pf.getPlantationData(i)
-        data.loc[pf.data.city_code == i, 'counts'] = counts
-        print("第：%d个,城市：%s,数量：%d"%(number+1,i,counts))
-        
-    data.to_csv ("./data/plantationData.csv")
-    pf.writePlantationData(data)
-    
+    # pf = plantationFormat()
+    # data = pf.readCityData()
+    # for number,i in enumerate(data.city_code.values):
+    #     # pf.__init__()
+    #     counts = pf.getPlantationData(i)
+    #     data.loc[pf.data.city_code == i, 'counts'] = counts
+    #     print("第：%d个,城市：%s,数量：%d"%(number+1,i,counts))
+    #
+    # data.counts = data.counts.astype (np.int64)
+    # data.to_csv ("./data/plantationData.csv")
+    # pf.writePlantationData(data)
 
 
     
