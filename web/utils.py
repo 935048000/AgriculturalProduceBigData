@@ -3,6 +3,7 @@ import os
 import yaml
 import pymysql
 from .logger import setup_log
+import json
 
 logger = setup_log(__name__)
 DEFAULT_CONFIG_LOCATION = 'config.yml'
@@ -138,3 +139,34 @@ def load_config(filename=DEFAULT_CONFIG_LOCATION, **kwargs):
         return file_config
     else:
         return kwargs
+
+def returnData(errcode,errmsg,data):
+    """
+    API返回数据模板
+    :param errcode: 返回码
+    :param errmsg: 返回信息
+    :param data: 返回数据
+    :return: JSON字符串
+    """
+    rdata = {"errcode":None,"errmsg":None,"data":None}
+    rdata["errcode"] = errcode
+    rdata["errmsg"] = errmsg
+    rdata["data"] = data
+    return str(rdata)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
