@@ -181,7 +181,7 @@ def provincePlantationCounts():
     """
     try:
         sql = """SELECT
-                pi.city,
+                pi.city as province,
                 pi.counts
                 FROM
                 plantation_info pi
