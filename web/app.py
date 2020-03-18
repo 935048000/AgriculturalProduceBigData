@@ -1,11 +1,9 @@
-from web.utils import load_config
-from web.logger  import setup_log
+from utils import load_config,mysql,returnData
+from logger  import setup_log
 from flask import Flask, request, render_template, session, redirect, url_for
-from web.utils import mysql,returnData
 import math
 from flask_paginate import Pagination, get_page_parameter
-
-
+import sys
 
 config = load_config()
 _logger = setup_log(__name__)
@@ -544,4 +542,4 @@ def yearLinkRelative():
 
 
 if __name__ == '__main__':
-    app.run(debug=False, port=8080)
+    app.run(debug=True, port=8080)

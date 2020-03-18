@@ -2,7 +2,7 @@ import io
 import os
 import yaml
 import pymysql
-from .logger import setup_log
+from logger import setup_log
 import json
 
 logger = setup_log(__name__)
