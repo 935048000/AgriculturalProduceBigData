@@ -544,4 +544,5 @@ def yearLinkRelative():
 
 
 if __name__ == '__main__':
+    app.config['JSON_AS_ASCII'] = False
     app.run(debug=False, port=8089,host='0.0.0.0')

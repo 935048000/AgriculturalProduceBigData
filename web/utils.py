@@ -155,7 +155,7 @@ def returnData(errcode,errmsg,data):
     _data_data["data"] = data
     rdata["data"] = _data_data
     # logger.info(str(rdata))
-    return json.dumps(rdata),{"Content-Type":"application/json;charset=utf-8"}
+    return json.dumps(rdata,ensure_ascii=False),{"Content-Type":"application/json;charset=utf-8"}
 
 
 
