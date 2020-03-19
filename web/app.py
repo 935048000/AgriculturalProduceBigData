@@ -4,6 +4,7 @@ from flask import Flask, request, render_template, session, redirect, url_for
 import math
 from flask_paginate import Pagination, get_page_parameter
 import sys
+from flask_cors import CORS
 
 config = load_config()
 _logger = setup_log(__name__)
@@ -11,6 +12,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'test'
 mysql = mysql(config['mysql'])
 
+CORS(app, supports_credentials=True)
 # 模板
 # @app.route("/user", methods=['POST', 'GET'])
 # def user():
@@ -282,7 +284,7 @@ def dayAvgPrice():
     # page = request.args.get (get_page_parameter (), type=int, default=1)
     # pagination = Pagination (page=page, total=len (_rdata))
     # _logger.info(pagination.info)
-    return returnData ("0", "成功", _rdata)
+    return returnData (0, "成功", _rdata)
 
 
 @app.route ("/price/monAvgPrice", methods=["POST"])
@@ -542,4 +544,4 @@ def yearLinkRelative():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8080)
+    app.run(debug=False, port=8089,host='0.0.0.0')
